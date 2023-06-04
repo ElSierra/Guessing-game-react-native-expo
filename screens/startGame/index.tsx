@@ -19,18 +19,21 @@ import Card from "../../components/ui/Card";
 import { TextInstruction } from "../../components/ui/TextInstruction";
 export default function StartGameScreen({
   start,
+  showAlert,
+  setShowAlert,
 }: {
   start: (text: string) => void;
+  showAlert: boolean;
+  setShowAlert: (alert: boolean) => void;
 }) {
   const [enteredNumber, setEnteredNumber] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
 
   const handleNumberChange = (text: string) => {
     setEnteredNumber(text);
   };
 
   const handleReset = () => {
-    setEnteredNumber("")
+    setEnteredNumber("");
   };
   const handleConfirm = () => {
     if (enteredNumber.length > 0) {
@@ -105,6 +108,5 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: Colors.textColor,
     marginVertical: 8,
-   
   },
 });

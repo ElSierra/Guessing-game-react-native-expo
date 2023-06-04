@@ -4,8 +4,9 @@ import {
   ImageBackground,
   Dimensions,
   SafeAreaView,
-
+  Text,
 } from "react-native";
+import Modal from "react-native-modal";
 import StartGameScreen from "./screens/startGame";
 import { LinearGradient } from "expo-linear-gradient";
 import { useCallback, useEffect, useState } from "react";
@@ -15,12 +16,15 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Audio } from "expo-av";
 import { StatusBar } from "expo-status-bar";
+import { BlurView } from "@react-native-community/blur";
+import Menu from "./screens/blurView";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [userNumber, setUserNumber] = useState<string | null>();
   const [gameOver, setGameOver] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
   const [roundsNumber, setRoundsNumber] = useState(0);
   const startGameHandler = (pickedNumber: string) => {
     setUserNumber(pickedNumber);
@@ -83,7 +87,13 @@ export default function App() {
     return null;
   }
 
-  let screen = <StartGameScreen start={startGameHandler} />;
+  let screen = (
+    <StartGameScreen
+      start={startGameHandler}
+      showAlert={showAlert}
+      setShowAlert={setShowAlert}
+    />
+  );
   if (userNumber) {
     screen = (
       <GameScreen userGuess={userNumber} gameOverHandler={gameOverHandler} />
@@ -105,13 +115,7 @@ export default function App() {
       style={styles.rootScreen}
       onLayout={onLayoutRootView}
     >
-       <StatusBar
-            animated={true}
-            style="light"
-            backgroundColor="transparent"
-           
-   
-          />
+      <StatusBar animated={true} style="light" backgroundColor="transparent" />
       <ImageBackground
         resizeMode="cover"
         style={styles.rootScreen}
@@ -119,8 +123,9 @@ export default function App() {
         imageStyle={styles.imageBg}
       >
         <SafeAreaView style={styles.rootScreen}>
-         
-          {screen}
+          {/* {screen} */}
+          {showAlert && <Menu>{screen}</Menu>}
+          {!showAlert && screen}
         </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
@@ -135,5 +140,17 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height + 30,
+  },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  absolute: {
+    flex: 1,
+    position: "absolute",
+    top: 20,
+    left: 0,
+    bottom: 0,
+    right: 0,
   },
 });

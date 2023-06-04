@@ -1,6 +1,7 @@
 import React from "react";
 import AwesomeAlert from "react-native-awesome-alerts";
 
+
 export default function AlertModal({
   showAlert,
   onCancelPressed,
@@ -17,7 +18,7 @@ export default function AlertModal({
       title= {title}
       closeOnTouchOutside={true}
       closeOnHardwareBackPress={false}
-      overlayStyle={{ backgroundColor: "black", opacity: 0.8 }}
+      overlayStyle={{ flex: 1, backgroundColor: "black", opacity: 0.8 }}
       contentContainerStyle={{ borderRadius: 16, backgroundColor: "#411839" }}
       cancelButtonStyle={{
         flex: 1,

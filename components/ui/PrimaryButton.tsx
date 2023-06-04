@@ -17,22 +17,22 @@ export default function PrimaryButton({
   children: ReactNode;
   onPress: (event: GestureResponderEvent) => void;
 }) {
-
   const [sound, setSound] = useState<Audio.Sound>();
   async function playSound() {
-    console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync( require('../../assets/sound/click.wav')
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../assets/sound/click.wav")
     );
     setSound(sound);
 
-    console.log('Playing Sound');
+    console.log("Playing Sound");
     await sound.playAsync();
   }
 
   useEffect(() => {
     return sound
       ? () => {
-          console.log('Unloading Sound');
+          console.log("Unloading Sound");
           sound.unloadAsync();
         }
       : undefined;
@@ -45,9 +45,13 @@ export default function PrimaryButton({
             ? [styles.buttonInnerContainer, styles.pressed]
             : styles.buttonInnerContainer;
         }}
-        onPress={(e)=>{
-          onPress(e)
-          playSound()
+        onPress={(e) => {
+          onPress(e);
+         
+        }}
+        unstable_pressDelay ={0}
+        onPressIn={(e) => {
+          playSound();
         }}
         android_ripple={{ color: Colors.primary100 }}
       >
