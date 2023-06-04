@@ -37,7 +37,6 @@ export default function StartGameScreen({
       const parsedNumber = parseInt(enteredNumber);
       if (parsedNumber <= 0 || isNaN(parsedNumber) || parsedNumber > 99) {
         setShowAlert(true);
-        Alert.alert("hhhhh");
         return;
       }
       start(enteredNumber);

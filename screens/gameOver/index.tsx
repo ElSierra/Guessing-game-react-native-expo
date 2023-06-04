@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Lottie from "lottie-react-native";
 import Title from "../../components/ui/Title";
 import { Colors } from "../../util/colors";
 import PrimaryButton from "../../components/ui/PrimaryButton";
 import { Audio } from "expo-av";
+import AnimatedLottieView from "lottie-react-native";
 
 export default function GameOver({
   guessedNumber,
@@ -15,15 +16,21 @@ export default function GameOver({
   roundsNumber: string;
   onStartNewGame: () => void;
 }) {
- 
- 
+  const lottieRef = useRef<AnimatedLottieView>(null);
+  useEffect(() => {
+    setTimeout(() => {
+      if (lottieRef.current) {
+        lottieRef.current.play();
+      }
+    }, 1);
+  }, [lottieRef.current]);
 
   return (
-
     <View style={style.root}>
       {/* <Text>Game is Over</Text> */}
 
       <Lottie
+        ref={lottieRef}
         style={{
           width: "100%",
           padding: 60,
