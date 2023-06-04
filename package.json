@@ -27,7 +27,6 @@
     "expo-av": "~13.2.1",
     "expo-system-ui": "~2.2.1"
   },
-  
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.0.14",

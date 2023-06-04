@@ -142,7 +142,7 @@ export default function GameScreen({
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    marginTop: 100,
+    marginTop: 50,
     alignItems: "center",
   },
   buttonGroup: {

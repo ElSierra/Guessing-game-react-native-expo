@@ -4,6 +4,7 @@ import {
   ImageBackground,
   Dimensions,
   SafeAreaView,
+
 } from "react-native";
 import StartGameScreen from "./screens/startGame";
 import { LinearGradient } from "expo-linear-gradient";
@@ -13,6 +14,7 @@ import GameOver from "./screens/gameOver";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Audio } from "expo-av";
+import { StatusBar } from "expo-status-bar";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -41,8 +43,6 @@ export default function App() {
     console.log("Playing Sound");
     await sound.playAsync();
   }
-
-  
 
   useEffect(() => {
     return sound
@@ -105,13 +105,23 @@ export default function App() {
       style={styles.rootScreen}
       onLayout={onLayoutRootView}
     >
+       <StatusBar
+            animated={true}
+            style="light"
+            backgroundColor="transparent"
+           
+   
+          />
       <ImageBackground
         resizeMode="cover"
         style={styles.rootScreen}
         source={require("./assets/images/bg.png")}
         imageStyle={styles.imageBg}
       >
-        <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
+        <SafeAreaView style={styles.rootScreen}>
+         
+          {screen}
+        </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
   );

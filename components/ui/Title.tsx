@@ -19,11 +19,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderWidth: 2,
     padding: 12,
+    maxWidth: '70%',
+    width: 300,
     borderColor: Colors.primary300,
   },
   titleText: {
     fontFamily: "dino-jumps",
     fontSize: 30,
+    textAlign: 'center',
     color: "white",
   },
 });

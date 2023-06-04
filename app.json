@@ -9,7 +9,10 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#f88a57"
+    },
+    "androidStatusBar": {
+      "translucent": false
     },
     "assetBundlePatterns": [
       "**/*"
@@ -31,6 +34,9 @@
       "eas": {
         "projectId": "df3b6eb4-11ab-4227-9b4e-90ec1206a40c"
       }
-    }
+    },
+    "plugins": [
+      "expo-build-properties"
+    ]
   }
 }
