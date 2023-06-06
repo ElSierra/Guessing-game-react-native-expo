@@ -1,10 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  useWindowDimensions,
+  ScrollView,
+  Platform
+} from "react-native";
 import Lottie from "lottie-react-native";
-import Title from "../../components/ui/Title";
-import { Colors } from "../../util/colors";
+
 import PrimaryButton from "../../components/ui/PrimaryButton";
-import { Audio } from "expo-av";
+
 import AnimatedLottieView from "lottie-react-native";
 
 export default function GameOver({
@@ -17,23 +23,17 @@ export default function GameOver({
   onStartNewGame: () => void;
 }) {
   const lottieRef = useRef<AnimatedLottieView>(null);
-  useEffect(() => {
-    setTimeout(() => {
-      if (lottieRef.current) {
-        lottieRef.current.play();
-      }
-    }, 1);
-  }, [lottieRef.current]);
+  const { width, height } = useWindowDimensions();
 
-  return (
-    <View style={style.root}>
-      {/* <Text>Game is Over</Text> */}
-
+  let content = (
+    <>
       <Lottie
         ref={lottieRef}
         style={{
-          width: "100%",
+          width: width > 500 ? "50%" : "100%",
           padding: 60,
+          marginTop: width > 500 ? 30 : 0,
+          paddingHorizontal: 50,
         }}
         source={require("../../assets/end.json")}
         autoPlay
@@ -48,11 +48,61 @@ export default function GameOver({
         </Text>
       </View>
       <PrimaryButton onPress={onStartNewGame}>Start New Game</PrimaryButton>
+    </>
+  );
+
+  if (width > 500) {
+    content = (
+      <View style={style.landScape}>
+        <Lottie
+          ref={lottieRef}
+          style={{
+            width: width > 500 ? "50%" : "100%",
+            padding: 60,
+            paddingHorizontal: 50,
+          }}
+          source={require("../../assets/end.json")}
+          autoPlay
+          loop
+        />
+        <View
+          style={{ flex: 1, alignContent: "center", justifyContent: "center" }}
+        >
+          <View style={style.bottomView}>
+            <Text style={style.summary}>
+              Your Phone needed <Text style={style.x}>{roundsNumber}</Text>{" "}
+              rounds
+            </Text>
+            <Text style={style.summary}>
+              to guess the number <Text style={style.y}>{guessedNumber}</Text>
+            </Text>
+          </View>
+          <PrimaryButton onPress={onStartNewGame}>Start New Game</PrimaryButton>
+        </View>
+      </View>
+    );
+  }
+  useEffect(() => {
+    setTimeout(() => {
+      if (lottieRef.current) {
+        lottieRef.current.play();
+      }
+    }, 1);
+  }, [lottieRef.current]);
+
+  return (
+    <View style={style.root}>
+      {/* <Text>Game is Over</Text> */}
+      {content}
     </View>
   );
 }
 
 const style = StyleSheet.create({
+  landScape: {
+    flex: 1,
+    flexDirection: "row",
+  },
   root: {
     flex: 1,
     padding: 24,

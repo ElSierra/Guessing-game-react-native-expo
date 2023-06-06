@@ -133,7 +133,5 @@ const styles = StyleSheet.create({
   },
   imageBg: {
     opacity: 0.5,
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height + 30,
   },
 });

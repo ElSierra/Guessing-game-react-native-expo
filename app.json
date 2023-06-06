@@ -3,7 +3,6 @@
     "name": "guess",
     "slug": "guess",
     "version": "1.0.0",
-    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -21,6 +20,7 @@
       "supportsTablet": true
     },
     "android": {
+      
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -34,9 +34,7 @@
       "eas": {
         "projectId": "df3b6eb4-11ab-4227-9b4e-90ec1206a40c"
       }
-    },
-    "plugins": [
-      "expo-build-properties"
-    ]
+    }
+    
   }
 }

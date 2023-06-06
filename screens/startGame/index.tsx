@@ -6,6 +6,10 @@ import {
   Alert,
   Text,
   ImageBackground,
+  Dimensions,
+  useWindowDimensions,
+  KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import { Button } from "@rneui/themed";
 import AwesomeAlert from "react-native-awesome-alerts";
@@ -24,13 +28,13 @@ export default function StartGameScreen({
 }) {
   const [enteredNumber, setEnteredNumber] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-
+  const { width, height } = useWindowDimensions();
   const handleNumberChange = (text: string) => {
     setEnteredNumber(text);
   };
 
   const handleReset = () => {
-    setEnteredNumber("")
+    setEnteredNumber("");
   };
   const handleConfirm = () => {
     if (enteredNumber.length > 0) {
@@ -50,45 +54,50 @@ export default function StartGameScreen({
     setShowAlert(false);
     setEnteredNumber("");
   };
+  const marginTopState = height < 400 ? 30 : 100;
   return (
-    <View style={styles.root}>
-      <AlertModal
-        showAlert={showAlert}
-        onCancelPressed={handlePressedCancel}
-        title='"Invalid Number Entered!, Number has to be between 0 and 99"'
-      />
-      <Title>{"Guess My number"}</Title>
-      <Card>
-        <TextInstruction text="Enter a number" />
-        <TextInput
-          blurOnSubmit={true}
-          selectionColor={"red"}
-          maxLength={2}
-          onChangeText={handleNumberChange}
-          inputMode="numeric"
-          value={enteredNumber}
-          style={styles.inputText}
-        />
-        <View style={styles.buttonGroup}>
-          <View style={styles.buttonContainer}>
-            <PrimaryButton onPress={handleReset}>Reset</PrimaryButton>
-          </View>
-          <View style={styles.buttonContainer}>
-            <PrimaryButton onPress={handleConfirm}>Confirm</PrimaryButton>
-          </View>
+    <ScrollView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.screen} behavior="position">
+        <View style={[styles.root, { marginTop: marginTopState }]}>
+          <AlertModal
+            showAlert={showAlert}
+            onCancelPressed={handlePressedCancel}
+            title='"Invalid Number Entered!, Number has to be between 0 and 99"'
+          />
+          <Title>{"Guess My number"}</Title>
+          <Card>
+            <TextInstruction text="Enter a number" />
+            <TextInput
+              blurOnSubmit={true}
+              selectionColor={"red"}
+              maxLength={2}
+              onChangeText={handleNumberChange}
+              inputMode="numeric"
+              value={enteredNumber}
+              style={styles.inputText}
+            />
+            <View style={styles.buttonGroup}>
+              <View style={styles.buttonContainer}>
+                <PrimaryButton onPress={handleReset}>Reset</PrimaryButton>
+              </View>
+              <View style={styles.buttonContainer}>
+                <PrimaryButton onPress={handleConfirm}>Confirm</PrimaryButton>
+              </View>
+            </View>
+          </Card>
         </View>
-      </Card>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
-
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    marginTop: 100,
     alignItems: "center",
   },
-
+  screen: {
+    flex: 1,
+  },
   buttonGroup: {
     flexDirection: "row",
     width: "100%",
@@ -105,6 +114,5 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: Colors.textColor,
     marginVertical: 8,
-   
   },
 });

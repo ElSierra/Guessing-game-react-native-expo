@@ -10,6 +10,7 @@ export default function Card({children}: {children: ReactNode}) {
       imageStyle={styles.imageBg}
       source={require("../../assets/images/dice-bg.png")}
     >
+      
       {children}
     </ImageBackground>
   );
